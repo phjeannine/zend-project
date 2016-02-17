@@ -137,6 +137,7 @@ img {
 	font-size: 22px;
 }
 
+/* Posts */
 .post {
 	margin-bottom: 30px;
 }
@@ -164,7 +165,52 @@ img {
 }
 
 .post .post-content .view-more {
-	color: #078C66;
 	font-size: 12px;
 	font-weight: bold;
+}
+
+.post .post-content a {
+	color: #078C66;
+}
+
+/* Single */
+.post-single .single-title{
+	margin-bottom: 15px;
+}
+
+.post-single .single-title h2 {
+	font-family: Georgia, serif;
+    margin: 0;
+}
+
+.post-single h3 {
+	font-family: Georgia, serif;
+    border-bottom: 1px solid #000;
+    font-size: 18px;
+    margin: 0;
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+    width: 200px;
+}
+
+.post-single .single-thumb img {
+    border: 7px solid rgba(204, 204, 204, 0.3);
+	width: 100%;
+}
+
+.post-single .single-description {
+	margin-top: 20px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+	background: none;
+}
+
+.breadcrumb p {
+	color: #777;
+}
+
+.breadcrumb a {
+	color: #078C66;
 }

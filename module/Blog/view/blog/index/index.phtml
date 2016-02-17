@@ -1,22 +1,21 @@
 <div class="row">
 <?php foreach ($this->categories as $category => $posts): ?>
-
-	<!-- 
+	<!--  
 	<div class="posts-category">
-    	<h2 class="col-lg-12"><?php //echo $category; ?></h2>
+    	<h2 class="col-md-12"><?php //echo $category; ?></h2>
     </div>
-     -->
+    -->
     	
     <?php 
         foreach($posts as $post):
         $description = $this->escapeHtml($post->description);
     ?>
-    	<div class="post col-lg-4 col-md-4 col-xs-12">
+    	<div class="post col-lg-4 col-md-4 col-xs-6 thumb">
     		<div class="post-content">
-            	<div class="post-image"><img src="<?php echo($this->basePath() . '/img/' . $this->escapeHtml($post->image)); ?>" /></div>
-            	<h3 class="post-title"><?php echo $this->escapeHtml($post->title); ?></h3>
-            	<p class="post-description"><?php echo substr($description, 0, 420);  ?>...</p>
-            	<a href="javascript:void(0);" class="view-more" title="Voir la suite">Voir la suite de l'article...</a>
+        		<div class="post-image"><img src="<?php echo($this->basePath() . '/img/' . $this->escapeHtml($post->image)); ?>" /></div>
+        		<h3 class="post-title"><a href="<?php echo $this->url('post', array('action'=>'get', 'id'=>$post->idPost));?>"><?php echo $this->escapeHtml($post->title); ?></a></h3>
+        		<p class="post-description"><?php echo substr($description, 0, 420);  ?>...</p>
+        		<a class="view-more" href="<?php echo $this->url('post', array('action'=>'get', 'id'=>$post->idPost));?>">Voir la suite de l'article...</a>
         	</div>
         </div>
     <?php endforeach;?>

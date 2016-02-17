@@ -27,14 +27,42 @@ return array(
                     ),
                 ),
             ),
-        ),
-    ),
-    
-    'controllers' => array(
-        'invokables' => array(
-            'Blog\Controller\Index' => 'Blog\Controller\IndexController',
-            'Blog\Controller\Category' => 'Blog\Controller\CategoryController',
-            'Blog\Controller\Post' => 'Blog\Controller\PostController',
+            'add_category' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/add/category[/]',
+                    'defaults' => array(
+                        'module'     => 'Blog',
+                        'controller' => 'Blog\Controller\Category',
+                        'action'     => 'add',
+                    ),
+                ),
+            ),
+            'add_post' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/add/post[/]',
+                    'defaults' => array(
+                        'module'     => 'Blog',
+                        'controller' => 'Blog\Controller\Post',
+                        'action'     => 'add',
+                    ),
+                ),
+            ),
+            'post' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/post[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Blog\Controller\Post',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
         ),
     ),
     

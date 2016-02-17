@@ -1,32 +1,47 @@
 <?php
 namespace Blog\Model;
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\AbstractTableGateway;
+use Zend\Db\Sql\Select;
+use Zend\Db\TableGateway\TableGateway;
 
-class PostTable extends AbstractTableGateway
+class PostTable
 {
-    protected $table ='post';
+    protected $tableGateway;
 
-    public function __construct(Adapter $adapter)
+    public function __construct(TableGateway $tableGateway)
     {
-        $this->adapter = $adapter;
-        $this->resultSetPrototype = new ResultSet();
-        $this->resultSetPrototype->setArrayObjectPrototype(new Post());
-        $this->initialize();
+        $this->tableGateway = $tableGateway;
     }
 
     public function fetchAll()
     {
-        $resultSet = $this->select();
+        $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
+    
+    public function fetchByIdCategoryWithLimit($idCategory, $limit)
+    {
+        $select = new Select();
+        $select->from('post')
+               ->where('id_category = ' . (int)$idCategory)
+               ->limit((int)$limit);
+
+        $resultSet = $this->tableGateway->select($select);
+        return $resultSet;
+    }
+    
+    public function fetchAllByIdCategory($idCategory)
+    {
+    	$id  = (int)$idCategory;
+        $resultSet = $this->tableGateway->select(array('id_category' => $id));
+        return $resultSet;
+    }
+    
 
     public function getPost($id)
     {
         $id  = (int)$id;
-        $rowset = $this->select(array('id_post' => $id));
+        $rowset = $this->tableGateway->select(array('id_post' => $id));
         $row = $rowset->current();
 
         if (!$row) {
@@ -43,7 +58,7 @@ class PostTable extends AbstractTableGateway
             'title' => $post->title,
             'image' => $post->image,
             'ingredients' => $post->ingredients,
-            'description' => $post->description,
+            'description' => $post->ingredients,
             'date' => $post->date,
             'id_category' => $post->idCategory
         );
@@ -51,26 +66,21 @@ class PostTable extends AbstractTableGateway
         $id = (int)$post->idPost;
 
         if ($id == 0) {
-            $this->insert($data);
+            $this->tableGateway->insert($data);
         } elseif ($this->getPost($id)) {
-            $this->update(
+            $this->tableGateway->update(
                 $data,
                 array(
                     'id_post' => $id,
                 )
-                );
+            );
         } else {
             throw new \Exception('Form id does not exist');
         }
     }
-    
-    public function fetchAllByIdCategory($id_category) {
-        $resultSet = $this->select(array('id_category'=>$id_category));
-        return $resultSet;
-    }
 
     public function deletePost($id)
     {
-        $this->delete(array('id_post' => $id));
+        $this->tableGateway->delete(array('id' => $id));
     }
 }
