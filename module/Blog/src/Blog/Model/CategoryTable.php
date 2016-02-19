@@ -11,6 +11,18 @@ class CategoryTable
     {
         $this->tableGateway = $tableGateway;
     }
+    
+    public function getAdapter()
+    {
+        return $this->tableGateway->getAdapter();
+    }
+    
+    public function getAll()
+    {
+        $select = new \Zend\Db\Sql\Select();
+        $select->from($this->tableGateway->getTable());
+        return $select;
+    }
 
     public function fetchAll()
     {

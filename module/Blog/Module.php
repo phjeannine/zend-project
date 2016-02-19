@@ -35,26 +35,6 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
     
-    /*
-    public function getServiceConfig()
-    {
-        return array(
-            'factories' => array(
-                'Blog\Model\CategoryTable' => function($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table = new CategoryTable($dbAdapter);
-                    return $table;
-                },
-                'Blog\Model\PostTable' =>  function($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table = new PostTable($dbAdapter);
-                    return $table;
-                },
-            ),
-        );
-    }
-    */
-    
     public function getServiceConfig()
     {
         return array(
@@ -84,7 +64,6 @@ class Module
             ),
         );
     }
-    
     
     public function getControllerConfig() {
         return array(

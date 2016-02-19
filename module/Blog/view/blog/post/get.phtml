@@ -1,0 +1,28 @@
+<div class="row">
+	<div class="breadcrumb col-lg-12">
+		<p><a href="<?php echo $this->url('home') ?>" title="Retour à la page d'accueil">Accueil</a> - <?php echo $this->escapeHtml($this->post->title)?></p>
+	</div>
+	
+    <div class="post-single col-md-10 col-md-offset-1">
+    	<div class="single-title col-lg-12">
+    		<h2><?php echo $this->escapeHtml($this->post->title)?></h2>
+    		<p><strong>Catégorie :</strong> <?php echo $this->escapeHtml($this->category->name)?></p>
+    	</div>
+    	
+    	<div class="single-thumb col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img src="<?php echo($this->basePath() . '/img/' . $this->escapeHtml($this->post->image)); ?>" />
+        </div>
+    	
+    	<div class="single-ingredients col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    		<?php $ingredients = $this->escapeHtml($this->post->ingredients); ?>
+    		<h3>Ingrédients</h3>
+            <p><?php echo nl2br($ingredients); ?></p>
+        </div>
+        
+        <div class="single-description col-lg-12">
+        	<?php $description = $this->escapeHtml($this->post->description); ?>
+        	<h3>Description</h3>
+            <p><?php echo nl2br($description); ?></p>
+        </div>
+    </div>
+</div>

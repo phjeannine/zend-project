@@ -13,6 +13,7 @@ return array(
         'ZfcBase',
         'ZfcUser',
         'ZfcUserDoctrineORM',
+        'ZfcAdmin',
         'Application',
         'Blog',
     ),
