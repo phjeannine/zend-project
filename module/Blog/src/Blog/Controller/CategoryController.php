@@ -102,6 +102,8 @@ class CategoryController extends AbstractActionController
             // Si le formulaire n'est pas valide, on reste sur la page et les erreurs apparaissent
         }
         
+        $this->getServiceLocator()->get('Zend\Log')->info('Une catégorie a été créée !');
+        
         return new ViewModel(
             array(
                 'form' => $formCategory

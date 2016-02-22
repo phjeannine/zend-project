@@ -5,6 +5,12 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Blog\Model\PostTable;
 
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Smtp as SmtpTransport;
+use Zend\Mime\Message as MimeMessage;
+use Zend\Mime\Part as MimePart;
+use Zend\Mail\Transport\SmtpOptions;
+
 class IndexController extends AbstractActionController
 {
     protected $postTable;
@@ -27,8 +33,34 @@ class IndexController extends AbstractActionController
         }
         return $this->categoryTable;
     }
+    
+    public function sendMail() {
+        $message = new Message();
+        $message->addTo('amliebarre@gmail.com')
+            ->addFrom('scarpa.zend@gmail.com')
+            ->setSubject('Test send mail using ZF2');
+            
+        // Setup SMTP transport using LOGIN authentication
+        $transport = new SmtpTransport();
+        $options   = new SmtpOptions(array(
+            'host'              => 'smtp.gmail.com',
+            'connection_class'  => 'login',
+            'connection_config' => array(
+                'ssl'       => 'tls',
+                'username' => 'scarpa.zend@gmail.com',
+                'password' => 'scarpa1234'
+            ),
+            'port' => 587,
+        ));
+        $html = new MimePart('<b>heii, <i>sorry</i>, i\'m going late</b>');
+        $html->type = "text/html";
+        $body = new MimeMessage();
+        $body->addPart($html);
+        $message->setBody($body);
+        $transport->setOptions($options);
+        $transport->send($message);
+    }
 
-    // Action index qui sera appelé par défaut
     public function indexAction()
     {
         $categories = $this->getCategoryTable()->fetchAll();
@@ -38,7 +70,10 @@ class IndexController extends AbstractActionController
             $posts = $this->getPostTable()->fetchAllByIdCategory($category->idCategory);
             $results[$category->name] = $posts;
         }
-
+        
+        $this->getServiceLocator()->get('Zend\Log')->info('Un utilisateur a accedé à la page index');
+        $this->sendMail();
+        
         return new ViewModel(
             array(
                 'categories' => $results,

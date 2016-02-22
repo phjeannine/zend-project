@@ -23,6 +23,24 @@ return array(
         'factories' => array(
             'Zend\Db\Adapter\Adapter'
                     => 'Zend\Db\Adapter\AdapterServiceFactory',
+            'Zend\Log' => function ($sm) {
+                $log = new Zend\Log\Logger();
+                $writer = new Zend\Log\Writer\Stream('./data/logfile');
+                $log->addWriter($writer);
+                return $log;
+            },
+            'Zend\LogError' => function ($sm) {
+                $log = new Zend\Log\Logger();
+                $writer = new Zend\Log\Writer\Stream('./data/logfileError');
+                $log->addWriter($writer);
+                return $log;
+            },
+                'Zend\LogWarning' => function ($sm) {
+                $log = new Zend\Log\Logger();
+                $writer = new Zend\Log\Writer\Stream('./data/logfileError');
+                $log->addWriter($writer);
+                return $log;
+            },
         ),
     ),
 );
