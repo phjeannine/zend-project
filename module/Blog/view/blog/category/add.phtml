@@ -2,37 +2,24 @@
     $title = 'Ajouter une catégorie';
     $this->headTitle($title);
 ?>
-
-<h1><?php echo $this->escapeHtml($title); ?></h1>
-
-<?php
-    $form = $this->form;
-    $form->setAttribute('action', $this->url('add_category'));
-    $form->prepare();
-
-    echo $this->form()->openTag($form);
-    echo $this->formHidden($form->get('id_category'));
-?>
-    <table id="category_form">
-        <tfoot>
-            <tr>
-                <td colspan="2">
-                    <?php echo $this->formSubmit($form->get('submit'));?>
-                </td>
-              </tr>
-        </tfoot>
-        <tbody>
-            <tr>
-                <th><?php echo $this->formLabel($form->get('name'));?></th>
-                <td>
-                    <p>
-                        <?php echo $this->formInput($form->get('name'));?>
-                    </p>
-                    <?php echo $this->formElementErrors($form->get('name'), array('class' => 'error_list'));?>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-<?php
-    echo $this->form()->closeTag();
-?>
+<div id="add-category">
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+    
+    <?php
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('add_category'));
+        $form->prepare();
+    
+        echo $this->form()->openTag($form);
+        echo $this->formHidden($form->get('id_category'));
+    ?>
+        <div id="category_form">
+           	<?php echo $this->formLabel($form->get('name'));?>
+    		<p><?php echo $this->formInput($form->get('name'));?></p>
+    		<?php echo $this->formElementErrors($form->get('name'), array('class' => 'error_list'));?>
+    		<?php echo $this->formSubmit($form->get('submit'));?>
+    	</div>
+    <?php
+        echo $this->form()->closeTag();
+    ?>
+</div>

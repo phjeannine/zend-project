@@ -214,3 +214,9 @@ img {
 .breadcrumb a {
 	color: #078C66;
 }
+
+/*----- CATEGORY -----*/
+/* Add category */
+#add-category h1 {
+	font-family: Georgia, serif
+}
